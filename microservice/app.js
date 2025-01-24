@@ -31,6 +31,8 @@ app.get('/', (req, res) => {
 
 // Route für das Speichern eines Wunsches
 app.post('/wish', async (req, res) => {
+    console.log(req.body); // Debugging
+    res.send(req.body);
     const { name, wish } = req.body; // Extrahiere Name und Wunsch aus dem Body
     if (!name || !wish) {
         return res.status(400).send({ message: 'Name und Wunsch sind erforderlich!' });
