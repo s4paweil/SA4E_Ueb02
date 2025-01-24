@@ -6,13 +6,15 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Schema
 const wishSchema = new mongoose.Schema({
-    name: String,
-    wish: String,
+    name: { type: String, required: true }, // Name des Nutzers
+    wish: { type: String, required: true }, // Wunsch
     status: { type: String, enum: ["formuliert", "in Bearbeitung", "in Auslieferung", "unter dem Baum"], default: "formuliert" }
 });
+
 const Wish = mongoose.model('Wish', wishSchema);
 
 // Verbindung zu MongoDB
@@ -29,10 +31,18 @@ app.get('/', (req, res) => {
 
 // Route für das Speichern eines Wunsches
 app.post('/wish', async (req, res) => {
-    const { name, wish } = req.body;
-    const newWish = new Wish({ name, wish });
-    await newWish.save();
-    res.status(201).send({ message: 'Wunsch gespeichert!', wish: newWish });
+    const { name, wish } = req.body; // Extrahiere Name und Wunsch aus dem Body
+    if (!name || !wish) {
+        return res.status(400).send({ message: 'Name und Wunsch sind erforderlich!' });
+    }
+    try {
+        const newWish = new Wish({ name, wish });
+        await newWish.save();
+        res.status(201).send({ message: 'Wunsch gespeichert!', wish: newWish });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Fehler beim Speichern des Wunsches!' });
+    }
 });
 
 // Server starten
