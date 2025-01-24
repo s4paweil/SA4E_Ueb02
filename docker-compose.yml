@@ -22,7 +22,7 @@ services:
       - MONGO_URI=mongodb://mongo:27017/xmas_wishes
 
   mongo:
-    image: arm64v8/mongo:4.4.19
+    image: iotstack-arm64/mongo:4.4.19
     ports:
       - "27017:27017"
     volumes:
