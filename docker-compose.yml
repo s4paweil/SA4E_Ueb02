@@ -7,8 +7,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - microservice1
-      - microservice2
+      - makeAWish-service1
+      - makeAWish-service2
 
   # MakeAWish-Microservice Instance 1
   makeAWish-service1:
