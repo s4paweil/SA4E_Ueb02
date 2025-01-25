@@ -78,4 +78,6 @@ mongoose.connect('mongodb://mongo:27017/xmas_wishes', {
   .catch(err => console.error('MongoDB connection error:', err));
 
 const PORT = 3001;
-app.listen(PORT, () => console.log(`Admin Service running on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Admin Service running on port ${PORT}`);
+});
