@@ -14,7 +14,8 @@
     <script>
         async function loadDashboard() {
             const token = localStorage.getItem('authToken'); // Token aus localStorage abrufen
-            console.log('Geladenes Token:', token); // Debugging: Token anzeigen
+            console.log('Token im Dashboard:', localStorage.getItem('authToken'));
+            console.log('Authorization-Header:', `Bearer ${token}`); // Debugging: Zeigt den Header
 
             if (!token) {
                 console.error('Kein Token gefunden im localStorage.');
