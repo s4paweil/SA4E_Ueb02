@@ -14,6 +14,8 @@ services:
     container_name: admin-service
     environment:
       - MONGO_URI=mongodb://mongo:27017/xmas_wishes
+    ports:
+      - "3001:3001"
 
   # Load Balancer
   nginx:
