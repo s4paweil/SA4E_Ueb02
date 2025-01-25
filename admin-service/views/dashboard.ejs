@@ -14,31 +14,37 @@
     <script>
         async function loadDashboard() {
             const token = localStorage.getItem('authToken'); // Token aus localStorage abrufen
-            console.log('Geladenes Token:', token);
+            console.log('Geladenes Token:', token); // Debugging: Token anzeigen
+
             if (!token) {
+                console.error('Kein Token gefunden im localStorage.');
                 document.getElementById('errorMessage').textContent = 'Token fehlt. Bitte erneut anmelden.';
                 document.getElementById('errorMessage').style.display = 'block';
                 return;
             }
 
             try {
+                console.log('Authorization-Header:', `Bearer ${token}`); // Debugging: Header anzeigen
+
                 const response = await fetch('/admin/dashboard', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${token}`, // Token im Authorization-Header
+                        'Authorization': `Bearer ${token}`, // Token im Header setzen
                     },
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    document.getElementById('dashboardContent').textContent = JSON.stringify(data);
+                    console.log('Serverantwort:', data); // Debugging: Antwort anzeigen
+                    document.getElementById('dashboardContent').textContent = JSON.stringify(data, null, 2);
                 } else {
                     const error = await response.json();
-                    document.getElementById('errorMessage').textContent = error.message;
+                    console.error('Fehler vom Server:', error); // Debugging: Serverfehler anzeigen
+                    document.getElementById('errorMessage').textContent = error.message || 'Fehler beim Laden des Dashboards.';
                     document.getElementById('errorMessage').style.display = 'block';
                 }
             } catch (err) {
-                console.error('Fehler beim Laden des Dashboards:', err);
+                console.error('Fehler beim Laden des Dashboards:', err); // Debugging: Fetch-Fehler anzeigen
                 document.getElementById('errorMessage').textContent = 'Fehler beim Laden des Dashboards.';
                 document.getElementById('errorMessage').style.display = 'block';
             }
