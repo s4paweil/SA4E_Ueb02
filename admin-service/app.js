@@ -21,6 +21,7 @@ const Wish = mongoose.model('Wish', wishSchema);
 
 // Nutzer aus Datei laden
 const users = JSON.parse(fs.readFileSync('./users.json', 'utf-8'));
+console.log('Benutzer geladen:', users);
 
 // Authentifizierung Middleware
 function authenticate(req, res, next) {
@@ -36,6 +37,18 @@ function authenticate(req, res, next) {
     }
 }
 
+const response = await fetch('http://192.168.2.120:8080/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+});
+
+app.use((req, res, next) => {
+    console.log('Host-Header:', req.headers.host);
+    next();
+});
+
+
 // Login-Seite
 app.get('/admin/login', (req, res) => {
     res.render('login');
@@ -43,17 +56,20 @@ app.get('/admin/login', (req, res) => {
 
 // Login-Endpoint
 app.post('/auth/login', (req, res) => {
-    const { username, password } = req.body;
+    console.log('Anfrage erhalten:', req.body);
 
-    // Überprüfen, ob der Benutzer existiert
+    const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
+
     if (!user) {
-        // Wenn die Anmeldedaten falsch sind
+        console.log('Ungültige Anmeldedaten');
         return res.status(401).send({ success: false, message: 'Ungültige Anmeldedaten!' });
     }
 
-    // Wenn die Anmeldedaten korrekt sind, erstelle ein Token
+    console.log('Benutzer gefunden:', username);
     const token = jwt.sign({ username, role: 'admin' }, SECRET_KEY, { expiresIn: '1h' });
+    console.log('Token erstellt:', token);
+
     res.send({ success: true, token });
 });
 
