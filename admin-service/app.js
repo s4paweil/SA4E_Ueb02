@@ -52,7 +52,7 @@ app.get('/admin/login', (req, res) => {
 });
 
 // Login-Endpoint
-app.post('/auth/login', (req, res) => {
+app.post('/admin/auth/login', (req, res) => {
     console.log('Anfrage erhalten:', req.body);
 
     const { username, password } = req.body;
@@ -76,7 +76,7 @@ app.get('/admin/dashboard', authenticate, (req, res) => {
 });
 
 // Wünsche abrufen
-app.get('/wishes', authenticate, async (req, res) => {
+app.get('/admin/wishes', authenticate, async (req, res) => {
     try {
         const wishes = await Wish.find();
         res.send(wishes);
@@ -87,7 +87,7 @@ app.get('/wishes', authenticate, async (req, res) => {
 });
 
 // Wunschstatus ändern
-app.put('/wishes/:id', authenticate, async (req, res) => {
+app.put('/admin/wishes/:id', authenticate, async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
