@@ -26,6 +26,7 @@ console.log('Benutzer geladen:', users);
 
 // Authentifizierung Middleware
 function authenticate(req, res, next) {
+    console.log('Authorization-Header:', req.headers.authorization); // Debugging
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
         return res.status(401).send({ message: 'Token erforderlich' });
@@ -36,9 +37,11 @@ function authenticate(req, res, next) {
         req.user = decoded; // Decodierte Benutzerinformationen speichern
         next();
     } catch (err) {
+        console.error('Token-Fehler:', err.message); // Debugging
         res.status(401).send({ message: 'Ungültiger Token' });
     }
 }
+
 
 // Debugging Middleware (optional)
 app.use((req, res, next) => {
