@@ -1,4 +1,21 @@
 services:
+  # Admin-Gateway
+  admin-gateway:
+    image: nginx:latest
+    container_name: admin-gateway
+    volumes:
+      - ./admin-gateway/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:8080"
+
+  # Admin-Service
+  admin-service:
+    build: ./admin-service
+    container_name: admin-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/xmas_wishes
+
+  # Load Balancer
   nginx:
     image: nginx:latest
     volumes:
@@ -9,18 +26,21 @@ services:
       - microservice1
       - microservice2
 
+  # MakeAWish-Microservice Instance 1
   microservice1:
     build:
       context: ./microservice
     environment:
       - MONGO_URI=mongodb://mongo:27017/xmas_wishes
 
+  # MakeAWish-Microservice Instance 2
   microservice2:
     build:
       context: ./microservice
     environment:
       - MONGO_URI=mongodb://mongo:27017/xmas_wishes
 
+  # MognoDB
   mongo:
     image: mongo:latest
     container_name: mongo
