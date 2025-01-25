@@ -7,20 +7,20 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - makeAWish-service1
-      - makeAWish-service2
+      - wish-service1
+      - wish-service2
 
-  # MakeAWish-Microservice Instance 1
-  makeAWish-service1:
+  # Wish-Service Instance 1
+  wish-service1:
     build:
-      context: ./makeAWish-service
+      context: ./wish-service
     environment:
       - MONGO_URI=mongodb://mongo:27017/xmas_wishes
 
-  # MakeAWish-Microservice Instance 2
-  makeAWish-service2:
+  # Wish-Service Instance 2
+  wish-service2:
     build:
-      context: ./makeAWish-service
+      context: ./wish-service
     environment:
       - MONGO_URI=mongodb://mongo:27017/xmas_wishes
 
