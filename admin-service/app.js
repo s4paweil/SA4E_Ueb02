@@ -44,12 +44,19 @@ app.get('/admin/login', (req, res) => {
 // Login-Endpoint
 app.post('/auth/login', (req, res) => {
     const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
-    if (!user) return res.status(401).send({ message: 'Ungültige Anmeldedaten' });
 
+    // Überprüfen, ob der Benutzer existiert
+    const user = users.find(u => u.username === username && u.password === password);
+    if (!user) {
+        // Wenn die Anmeldedaten falsch sind
+        return res.status(401).send({ success: false, message: 'Ungültige Anmeldedaten!' });
+    }
+
+    // Wenn die Anmeldedaten korrekt sind, erstelle ein Token
     const token = jwt.sign({ username, role: 'admin' }, SECRET_KEY, { expiresIn: '1h' });
-    res.send({ token });
+    res.send({ success: true, token });
 });
+
 
 // Dashboard-Seite
 app.get('/admin/dashboard', authenticate, (req, res) => {
