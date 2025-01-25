@@ -72,7 +72,10 @@ app.post('/admin/auth/login', (req, res) => {
 
 // Dashboard-Seite
 app.get('/admin/dashboard', authenticate, (req, res) => {
-    res.render('dashboard');
+    res.send({
+        message: 'Willkommen im Dashboard!',
+        user: req.user, // Aus dem Token decodierter Benutzer
+    });
 });
 
 // Wünsche abrufen
