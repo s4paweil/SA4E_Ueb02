@@ -33,5 +33,17 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  # Camel Integration
+  camel-integration:
+    build: ./camel-integration
+    image: camel-integration
+    container_name: camel-integration
+    volumes:
+      - ./scanned_letters:/scanned_letters
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+    depends_on:
+      - mongo
+
 volumes:
   mongo-data:
