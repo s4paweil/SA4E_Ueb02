@@ -1,32 +1,42 @@
 package com.xmas.camel;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.bson.Document;
-import org.springframework.stereotype.Component;
+import org.apache.camel.impl.DefaultCamelContext;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-@Component
 public class XmasWishesRoute extends RouteBuilder {
+
     @Override
     public void configure() throws Exception {
-        from("file:/scanned_letters?noop=true") // Überwachung des Ordners
-                .routeId("file-to-mongo")
-                .log("Neue Datei entdeckt: ${header.CamelFileName}")
-                .process(exchange -> {
-                    String filename = exchange.getIn().getHeader("CamelFileName", String.class);
-                    byte[] fileContent = Files.readAllBytes(Paths.get(exchange.getIn().getBody(String.class)));
+        // Route definition: Scans to MongoDB
+        from("file:/scans?noop=true")
+                .log("Processing file: ${header.CamelFileName}")
+                .to("mongodb:myDb?database=xmas_wishes&collection=scans&operation=insert");
+    }
 
-                    // MongoDB-Dokument erstellen
-                    Document document = new Document();
-                    document.put("filename", filename);
-                    document.put("content", fileContent);
-                    document.put("timestamp", System.currentTimeMillis());
+    public static void main(String[] args) {
+        // Create a CamelContext instance
+        CamelContext context = new DefaultCamelContext();
 
-                    exchange.getIn().setBody(document);
-                })
-                .to("mongodb:myDb?database=xmas_wishes&collection=scanned_wishes&operation=insert")
-                .log("Datei erfolgreich in MongoDB gespeichert: ${header.CamelFileName}");
+        try {
+            // Add the route to the context
+            context.addRoutes(new XmasWishesRoute());
+
+            // Start the context
+            context.start();
+            System.out.println("Camel Context started. Press Ctrl+C to exit.");
+
+            // Keep the application running
+            Thread.sleep(Long.MAX_VALUE);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                context.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
