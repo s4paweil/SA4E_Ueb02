@@ -39,7 +39,7 @@ services:
     image: camel-integration
     container_name: camel-integration
     volumes:
-      - ./scanned_letters:/scanned_letters
+      - ./scanned_letters:/scans
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
     depends_on:
