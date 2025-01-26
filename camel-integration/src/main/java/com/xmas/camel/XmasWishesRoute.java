@@ -6,14 +6,35 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class XmasWishesRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
         // Route definition: Scans to MongoDB
-        from("file:/scans?noop=true")
-                .log("Processing file: ${header.CamelFileName}")
-                .to("mongodb:myDb?database=xmas_wishes&collection=scans&operation=insert");
+        from("file:///scans?noop=true")
+                .process(exchange -> {
+                    // Dateiinhalt lesen und Base64-kodieren
+                    File file = exchange.getIn().getBody(File.class);
+                    byte[] fileContent = Files.readAllBytes(file.toPath());
+                    String base64Encoded = Base64.getEncoder().encodeToString(fileContent);
+
+                    // MongoDB-Dokument erstellen
+                    Map<String, Object> document = new HashMap<>();
+                    document.put("filename", file.getName());
+                    document.put("content", base64Encoded);
+                    document.put("timestamp", new Date());
+
+                    exchange.getIn().setBody(document);
+                })
+                .to("mongodb:myDb?database=xmas_wishes&collection=scans&operation=insert")
+                .log("Datei ${header.CamelFileName} wurde in MongoDB gespeichert.");
     }
 
     public static void main(String[] args) {
@@ -31,7 +52,7 @@ public class XmasWishesRoute extends RouteBuilder {
 
             // Start the context
             context.start();
-            System.out.println("Camel Context started. Press Ctrl+C to exit.");
+            System.out.println("Camel Context gestartet. Drücken Sie Strg+C, um zu beenden.");
 
             // Keep the application running
             Thread.sleep(Long.MAX_VALUE);
