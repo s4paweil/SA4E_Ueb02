@@ -1,5 +1,7 @@
 package com.xmas.camel;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -19,6 +21,11 @@ public class XmasWishesRoute extends RouteBuilder {
         CamelContext context = new DefaultCamelContext();
 
         try {
+            // Create MongoDB client
+            MongoClient mongoClient = MongoClients.create("mongodb://mongo:27017");
+            // Register the MongoClient in the Camel context
+            context.getRegistry().bind("myDb", mongoClient);
+
             // Add the route to the context
             context.addRoutes(new XmasWishesRoute());
 
