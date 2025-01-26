@@ -44,19 +44,30 @@ textarea {
 }
 
 button {
-    background-color: #d9534f;
+    background: linear-gradient(45deg, #ff4d4d, #ff0000);
     border: none;
     color: #fff;
     padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #c9302c;
+    background: linear-gradient(45deg, #ff1a1a, #e60000);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
 }
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .char-count {
     font-size: 0.9rem;
