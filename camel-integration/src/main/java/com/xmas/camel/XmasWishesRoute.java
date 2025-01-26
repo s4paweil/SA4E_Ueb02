@@ -5,13 +5,12 @@ import com.mongodb.client.MongoClients;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.bson.Document;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class XmasWishesRoute extends RouteBuilder {
 
@@ -26,10 +25,10 @@ public class XmasWishesRoute extends RouteBuilder {
                     String base64Encoded = Base64.getEncoder().encodeToString(fileContent);
 
                     // MongoDB-Dokument erstellen
-                    Map<String, Object> document = new HashMap<>();
-                    document.put("filename", file.getName());
-                    document.put("content", base64Encoded);
-                    document.put("timestamp", new Date());
+                    Document document = new Document()
+                            .append("filename", file.getName())
+                            .append("content", base64Encoded)
+                            .append("timestamp", new Date());
 
                     exchange.getIn().setBody(document);
                 })
