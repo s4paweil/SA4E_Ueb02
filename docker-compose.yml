@@ -33,5 +33,14 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  # Camel Integration
+  camel-integration:
+    build: ./camel-integration
+    container_name: camel-integration
+    volumes:
+      - ./scanned_letters:/scans
+    depends_on:
+      - mongo
+
 volumes:
   mongo-data:
