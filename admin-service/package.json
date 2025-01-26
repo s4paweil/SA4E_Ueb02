@@ -1,0 +1,14 @@
+{
+  "name": "admin-service",
+  "version": "1.0.0",
+  "description": "Microservice to manage wishes and update their status",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "ejs": "^3.1.9"
+  }
+}

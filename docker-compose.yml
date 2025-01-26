@@ -42,5 +42,14 @@ services:
     depends_on:
       - mongo
 
+  # Admin-Service
+  admin-service:
+    build: ./admin-service
+    container_name: admin-service
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+
 volumes:
   mongo-data:
