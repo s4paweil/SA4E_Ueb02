@@ -29,7 +29,7 @@
       <artifactId>camel-mongodb</artifactId>
       <version>3.20.0</version>
     </dependency>
-    <!-- Spring Boot Starter -->
+    <!-- Spring Boot Starter (Optional, for Spring Boot projects) -->
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-spring-boot-starter</artifactId>
@@ -38,6 +38,7 @@
   </dependencies>
   <build>
     <plugins>
+      <!-- Maven Compiler Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -47,6 +48,7 @@
           <target>17</target>
         </configuration>
       </plugin>
+      <!-- Maven Jar Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -58,6 +60,28 @@
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+      <!-- Maven Shade Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <!-- Main-Class im JAR setzen -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.xmas.camel.XmasWishesRoute</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
