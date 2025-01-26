@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weihnachtswunsch</title>
+    <title>Christmas Wish Site</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Weihnachtswunsch eintragen</h1>
-    <form action="/wish" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="wish">Wunsch:</label>
-        <input type="text" id="wish" name="wish" required>
-        <br>
-        <button type="submit">Wunsch senden</button>
-    </form>
+    <div class="container">
+        <h1>Christmas Wish Site</h1>
+        <form action="/wish" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <textarea name="wish" placeholder="Your Christmas Wish (max 250 characters)" maxlength="250" required></textarea>
+            <button type="submit">Submit Wish</button>
+        </form>
+        <div class="char-count" id="charCount">0/250</div>
+    </div>
+    <script>
+        // Update character count for textarea
+        const textarea = document.querySelector("textarea");
+        const charCount = document.getElementById("charCount");
+
+        textarea.addEventListener("input", () => {
+            charCount.textContent = `${textarea.value.length}/250`;
+        });
+    </script>
 </body>
 </html>
