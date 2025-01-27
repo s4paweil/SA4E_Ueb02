@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 500px;
     margin: 50px auto;
     text-align: center;
     background-color: rgba(255, 0, 0, 0.85);
@@ -27,15 +27,17 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Zentriert die Felder */
 }
 
 input, textarea {
-    width: 100%;
+    width: calc(100% - 20px); /* Verhindert Überlaufen und stellt symmetrischen Abstand sicher */
     margin-bottom: 15px;
     padding: 10px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
+    box-sizing: border-box; /* Bezieht Padding in die Breite ein */
 }
 
 textarea {
@@ -55,6 +57,7 @@ button {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: calc(100% - 40px); /* Gleicher Abstand wie die Eingabefelder */
 }
 
 button:hover {
@@ -68,9 +71,11 @@ button:active {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
 .char-count {
     font-size: 0.9rem;
     color: #fff;
-    margin-top: 10px;
+    margin-top: 15px; /* Vergrößert den Abstand nach oben, um Überlappung zu vermeiden */
+    text-align: right; /* Text rechts ausrichten */
+    width: 100%; /* Breite passend zum Formular */
+    box-sizing: border-box; /* Bezieht Padding in die Breite ein */
 }
