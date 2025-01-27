@@ -41,6 +41,7 @@ app.post('/wish', async (req, res) => {
     try {
         const newWish = new Wish({ name, wish });
         await newWish.save();
+        console.log(`Wunsch gespeichert: Name = "${newWish.name}", Wunsch = "${newWish.wish}"`);
         res.render('success');
     } catch (error) {
         console.error(error);
