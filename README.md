@@ -62,3 +62,7 @@ To stop all services use
 ```bash
 docker compose down
 ```
+
+## **Load Testing**
+The folder `k6-tests` contains tests to run with the load testing tool ***Grafana k6***.
+A further description of the tests as well as the results are included in the documentation.
