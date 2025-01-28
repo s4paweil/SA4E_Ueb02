@@ -66,3 +66,18 @@ docker compose down
 ## **Load Testing**
 The folder `k6-tests` contains tests to run with the load testing tool ***Grafana k6***.
 A further description of the tests as well as the results are included in the documentation.
+
+### Architecture of Prototype
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f02d17a2-e9be-47b6-b08a-c5bb64b3ee3d" alt="Architecture of Prototype"/>
+</p>
+
+### Wish-Service Frontend
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3b39cab8-be07-45a8-8a4b-7b19b26a320f" alt="Wish-Service Frontend"/>
+</p>
+
+### Admin-Service Frontend
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ba88ac6d-3651-4cee-8daa-d7dbeb80359f" alt="Admin-Service Frontend"/>
+</p>
