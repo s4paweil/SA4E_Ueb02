@@ -16,7 +16,7 @@ export const options = {
 };
 
 export default function () {
-    const url = 'http://192.168.2.120/wish';
+    const url = 'http://localhost/wish';
     const payload = JSON.stringify({
         name: `Test User ${__VU}-${__ITER}`,
         wish: 'This is a test wish.',
