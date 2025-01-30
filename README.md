@@ -69,13 +69,14 @@ A further description of the tests as well as the results are included in the do
 
 ### Architecture of Prototype
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f02d17a2-e9be-47b6-b08a-c5bb64b3ee3d" alt="Architecture of Prototype"/>
+  <img src="https://github.com/user-attachments/assets/56eb6a9d-311d-4480-ab99-287a6c306126" alt="Architecture of Prototype"/>
 </p>
 
 ### Wish-Service Frontend
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3b39cab8-be07-45a8-8a4b-7b19b26a320f" alt="Wish-Service Frontend"/>
 </p>
+
 
 ### Admin-Service Frontend
 <p align="center">
