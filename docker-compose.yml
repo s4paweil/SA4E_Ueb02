@@ -27,27 +27,6 @@ services:
     environment:
       - MONGO_URI=mongodb://mongo:27017/xmas_wishes
 
-  # Wish-Service Instance 3
-  wish-service3:
-    build:
-      context: ./wish-service
-    environment:
-      - MONGO_URI=mongodb://mongo:27017/xmas_wishes
-
-  # Wish-Service Instance 4
-  wish-service4:
-    build:
-      context: ./wish-service
-    environment:
-      - MONGO_URI=mongodb://mongo:27017/xmas_wishes
-
-  # Wish-Service Instance 5
-  wish-service5:
-    build:
-      context: ./wish-service
-    environment:
-      - MONGO_URI=mongodb://mongo:27017/xmas_wishes
-
   # MognoDB
   mongo:
     image: mongo:latest
