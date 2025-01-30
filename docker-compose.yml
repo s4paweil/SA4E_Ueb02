@@ -9,9 +9,6 @@ services:
     depends_on:
       - wish-service1
       - wish-service2
-      - wish-service3
-      - wish-service4
-      - wish-service5
 
   # Wish-Service Instance 1
   wish-service1:
