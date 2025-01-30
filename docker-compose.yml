@@ -9,6 +9,9 @@ services:
     depends_on:
       - wish-service1
       - wish-service2
+      - wish-service3
+      - wish-service4
+      - wish-service5
 
   # Wish-Service Instance 1
   wish-service1:
@@ -19,6 +22,27 @@ services:
 
   # Wish-Service Instance 2
   wish-service2:
+    build:
+      context: ./wish-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/xmas_wishes
+
+  # Wish-Service Instance 3
+  wish-service3:
+    build:
+      context: ./wish-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/xmas_wishes
+
+  # Wish-Service Instance 4
+  wish-service4:
+    build:
+      context: ./wish-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/xmas_wishes
+
+  # Wish-Service Instance 5
+  wish-service5:
     build:
       context: ./wish-service
     environment:
